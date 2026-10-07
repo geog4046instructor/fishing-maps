@@ -1,0 +1,29 @@
+{
+  "source_url": "https://www.mdwfp.com/sites/default/files/2024-05/lake-tangipahoa-2016.pdf",
+  "source_date": "2016-10",
+  "source_sha256": "8e23f4cf2d615038142c8c656bda8df5aafe0ffc5e14ea68cd251d5eac9be637",
+  "generated_by": "scripts/extract-channel.py",
+  "method": "Extract 77 white cubic vector strokes; join consecutive dash endpoints with straight segments. No extrapolation beyond the published line.",
+  "source_crs": "NAD83(HARN) / Mississippi TM",
+  "output_crs": "EPSG:4326",
+  "georeferencing": "Main Lake viewport GPTS/LPTS; affine in embedded projected CRS, then transform to WGS84. Same method as depth contours.",
+  "control_fit_max_residual_m": 0.199,
+  "source_strokes": 77,
+  "joined_dash_gaps": 76,
+  "max_joined_dash_gap_m": 21.715,
+  "curve_flattening_tolerance_pdf_pt": 0.02,
+  "limitations": "Historical mapped channel, not a current survey. Source positional accuracy and channel width are unspecified. Straight bridges across the printed dash gaps are approximate. This line does not indicate channel depth or navigable water.",
+  "vertices": 369,
+  "length_m": 3166.9,
+  "endpoints_lonlat": [
+    [
+      -90.5274129,
+      31.174863
+    ],
+    [
+      -90.5209263,
+      31.1986198
+    ]
+  ],
+  "wgs84_transform": "Inverse of Mississippi Transverse Mercator + NAD83(HARN) to WGS 84 (3) (with axis order normalized for visualization)"
+}

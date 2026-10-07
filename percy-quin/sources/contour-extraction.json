@@ -1,0 +1,128 @@
+{
+  "source_url": "https://www.mdwfp.com/sites/default/files/2024-05/lake-tangipahoa-2016.pdf",
+  "source_date": "2016-10",
+  "source_sha256": "8e23f4cf2d615038142c8c656bda8df5aafe0ffc5e14ea68cd251d5eac9be637",
+  "generated_by": "scripts/extract-contours.py",
+  "depth_unit": "feet",
+  "contours_ft": [
+    4,
+    8,
+    12,
+    16
+  ],
+  "method": "Boundaries between the five original depth colors; no interpolation or satellite-derived depths.",
+  "source_crs": "NAD83(HARN) / Mississippi TM",
+  "output_crs": "EPSG:4326",
+  "georeferencing": "Main Lake viewport ISO 32000 GPTS/LPTS; least-squares affine in the embedded projected CRS, then datum transformation to WGS84.",
+  "source_raster_pixel_size_m": [
+    1.241,
+    1.241
+  ],
+  "control_fit_max_residual_m": 0.199,
+  "simplification_tolerance_m": 1.5,
+  "limitations": "Historical published depths, not current measured depths. Source survey accuracy and water-surface datum are unspecified. Raster cell size and registration residual are not survey accuracy. No 20-foot boundary exists in the source bands.",
+  "viewport_bbox_pdf": [
+    17.03883,
+    595.67908,
+    776.3468,
+    18.44655
+  ],
+  "control_lpts": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      0.0
+    ],
+    [
+      1.0,
+      1.0
+    ]
+  ],
+  "control_gpts_latlon": [
+    [
+      31.17293,
+      -90.5458
+    ],
+    [
+      31.19986,
+      -90.54603
+    ],
+    [
+      31.20011,
+      -90.50482
+    ],
+    [
+      31.17318,
+      -90.50461
+    ]
+  ],
+  "source_crs_wkt": "PROJCS[\"NAD_1983_HARN_Mississippi_TM\",GEOGCS[\"GCS_North_American_1983_HARN\",DATUM[\"D_North_American_1983_HARN\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",500000.0],PARAMETER[\"False_Northing\",1300000.0],PARAMETER[\"Central_Meridian\",-89.75],PARAMETER[\"Scale_Factor\",0.9998335],PARAMETER[\"Latitude_Of_Origin\",32.5],UNIT[\"Meter\",1.0]]",
+  "projected_affine": [
+    [
+      3926.8042698662803,
+      0.19883330448783862
+    ],
+    [
+      0.04678524541668594,
+      -2985.57893926464
+    ],
+    [
+      424146.45171283744,
+      1156131.9748102592
+    ]
+  ],
+  "wgs84_transform": "Inverse of Mississippi Transverse Mercator + NAD83(HARN) to WGS 84 (3) (with axis order normalized for visualization)",
+  "raster_size": [
+    3164,
+    2406
+  ],
+  "source_stripes": 15,
+  "verified_overlap_rows": 14,
+  "water_pixel_counts": {
+    "0-4": 412143,
+    "4-8": 450258,
+    "8-12": 316551,
+    "12-16": 104376,
+    "16-20": 5706
+  },
+  "contours": [
+    {
+      "depth_ft": 4,
+      "features": 60,
+      "raster_edges": 11478,
+      "vertices_before": 11538,
+      "vertices_after": 1992
+    },
+    {
+      "depth_ft": 8,
+      "features": 37,
+      "raster_edges": 9142,
+      "vertices_before": 9179,
+      "vertices_after": 1459
+    },
+    {
+      "depth_ft": 12,
+      "features": 20,
+      "raster_edges": 6022,
+      "vertices_before": 6042,
+      "vertices_after": 860
+    },
+    {
+      "depth_ft": 16,
+      "features": 6,
+      "raster_edges": 1128,
+      "vertices_before": 1134,
+      "vertices_after": 162
+    }
+  ],
+  "max_generalization_deviation_m": 1.49,
+  "feature_count": 123,
+  "geojson_bytes": 145946
+}

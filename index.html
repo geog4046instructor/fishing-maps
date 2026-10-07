@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Lake Tangipahoa fishing map at Percy Quin State Park, Mississippi, with published fish-attractor locations.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#173d39">
+  <title>Lake Tangipahoa · Fishing Maps</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+  <script type="module" src="./assets/map.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#map">Skip to map</a>
+  <main class="layout">
+    <dialog id="map-panel" class="sidebar" open aria-label="Lake information and map controls">
+      <div class="panel-toolbar"><strong>Map &amp; layers</strong><button id="close-panel" type="button" aria-label="Close map layers">Done</button></div>
+      <header class="lake-header">
+        <p class="eyebrow">Fishing Maps <span>01 / Mississippi</span></p>
+        <h1>Lake <br>Tangipahoa</h1>
+        <p class="location">Percy Quin State Park · Pike County, MS</p>
+        <p class="intro">Depth contours, creek channel, satellite imagery, your location, and fish attractors.</p>
+      </header>
+
+      <section class="panel" aria-labelledby="layers-heading">
+        <h2 id="layers-heading">On the map</h2>
+        <label class="field-label" for="basemap-select">Basemap</label>
+        <select id="basemap-select" class="basemap-select" disabled>
+          <option value="naip2025" selected>2025 aerial · 30 cm</option>
+          <option value="satellite">Esri satellite / aerial</option>
+          <option value="streets">Street map</option>
+        </select>
+        <p id="basemap-description" class="basemap-description">USDA NAIP · 2025 · 30 cm (about 1 ft) pixels. Mississippi coverage.</p>
+        <a id="basemap-source" class="text-link basemap-source" href="https://maris.mississippi.edu/HTML/DATA/data_Aerial/NAIP/NAIP2025.html" target="_blank" rel="noopener noreferrer">2025 imagery source ↗</a>
+        <label class="layer-option" for="attractors-toggle">
+          <span class="marker-key" aria-hidden="true"></span>
+          <span>Fish attractors <small>Installed January 2016</small></span>
+          <input id="attractors-toggle" type="checkbox" checked disabled>
+        </label>
+        <p id="data-status" class="status" role="status">Loading published locations…</p>
+        <label class="field-label" for="attractor-select">Find an attractor</label>
+        <select id="attractor-select" disabled>
+          <option value="">Choose a location</option>
+        </select>
+      </section>
+
+      <section class="panel source-panel" aria-labelledby="channel-heading">
+        <h2 id="channel-heading">Creek channel</h2>
+        <label class="layer-option" for="channel-toggle">
+          <span class="channel-swatch" aria-hidden="true"></span>
+          <span>Show creek channel <small>MDWFP · October 2016</small></span>
+          <input id="channel-toggle" type="checkbox" checked disabled>
+        </label>
+        <p id="channel-status" class="status" role="status">Loading creek channel…</p>
+        <p>The dashed white line shows the historical mapped route. Tap it for source details. Use the contours to find depth changes near the channel.</p>
+        <a class="text-link" href="./percy-quin/data/creek-channel.geojson" download>Download channel line <span aria-hidden="true">↓</span></a>
+      </section>
+
+      <section class="panel source-panel" aria-labelledby="sources-heading">
+        <h2 id="sources-heading">Depth contours</h2>
+        <label class="layer-option" for="depth-toggle">
+          <span class="contour-key" aria-hidden="true"></span>
+          <span>Show depth lines <small>MDWFP · October 2016</small></span>
+          <input id="depth-toggle" type="checkbox" checked disabled>
+        </label>
+        <p id="depth-status" class="status" role="status">Loading depth contours…</p>
+        <label class="field-label" for="depth-mode">Contour view</label>
+        <select id="depth-mode" disabled>
+          <option value="all" selected>All contours · 4, 8, 12, 16 ft</option>
+          <option value="bank">Bank fishing · 4 &amp; 8 ft</option>
+        </select>
+        <p>Closely spaced lines indicate a steeper bottom. Tap a line for its depth. Shallow contours are emphasized for bank fishing.</p>
+        <p>These are published 2016 depths; current water level and bottom conditions may differ. The source has no separate 20 ft boundary.</p>
+        <a class="text-link" href="./percy-quin/sources/lake-tangipahoa-2016.pdf" target="_blank" rel="noopener noreferrer">Open MDWFP depth map <span aria-hidden="true">↗</span></a>
+        <a class="text-link depth-download" href="./percy-quin/data/depth-contours.geojson" download>Download contour lines <span aria-hidden="true">↓</span></a>
+      </section>
+
+      <footer class="source-footer">
+        <p><strong>Using your location</strong><br>Tap Locate me and allow location in Chrome. The blue dot shows your position; the circle shows reported accuracy. Drag the map to pause following, then tap Recenter me. Location may pause when Chrome is in the background or the phone is locked.</p>
+        <p><strong>Source: MDWFP</strong><br>Attractor locations are historical; their present condition is unverified. Numbers are map IDs, not official site names.</p>
+        <div class="footer-links">
+          <a href="https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park" target="_blank" rel="noopener noreferrer">Lake information</a>
+          <a href="./percy-quin/data/fish-attractors.geojson" download>Download points</a>
+        </div>
+      </footer>
+    </dialog>
+
+    <section class="map-area" aria-label="Interactive fishing map">
+      <div id="map" tabindex="0" aria-label="Lake Tangipahoa map. Use arrow keys to pan and plus or minus to zoom."></div>
+      <div class="map-label"><span class="live-dot" aria-hidden="true"></span> Lake Tangipahoa <span id="basemap-badge" class="basemap-badge">2025 aerial</span></div>
+      <div class="map-legend">
+      <div id="depth-key" class="depth-key" aria-label="Depth contour legend in feet" hidden>
+        <span data-depth-key="4" class="depth-4">━ 4′</span>
+        <span data-depth-key="8" class="depth-8">━ 8′</span>
+        <span data-depth-key="12" class="depth-12">━ 12′</span>
+        <span data-depth-key="16" class="depth-16">━ 16′</span>
+        <small>2016 depths</small>
+      </div>
+      <div id="channel-key" class="channel-key" aria-label="Creek channel legend" hidden>
+        <span class="channel-swatch" aria-hidden="true"></span>
+        <span>Creek channel</span><small>2016 map</small>
+      </div>
+      </div>
+      <div class="location-panel">
+        <span id="location-status" role="status">Tap Locate me to show your position.</span>
+        <button id="stop-location" type="button" hidden>Stop</button>
+      </div>
+      <div id="measure-panel" class="measure-panel" hidden>
+        <div class="measure-status" role="status" aria-atomic="true">
+          <strong id="measure-readout">Measure a cast</strong>
+          <span id="measure-hint">Tap your start point.</span>
+        </div>
+        <button id="measure-clear" type="button" disabled>Clear</button>
+        <button id="measure-done" type="button">Done</button>
+      </div>
+      <nav class="map-actions" aria-label="Map actions">
+        <button id="locate-me" type="button" aria-pressed="false" disabled>Locate me</button>
+        <button id="measure-toggle" type="button" aria-pressed="false" aria-controls="measure-panel" disabled>Measure</button>
+        <button id="reset-view" type="button" disabled>Whole lake</button>
+        <button id="panel-toggle" type="button" aria-controls="map-panel" aria-expanded="false">Layers</button>
+      </nav>
+      <p id="map-error" class="map-error" role="alert" hidden></p>
+      <p id="tile-status" class="tile-status" role="status" hidden></p>
+      <noscript><p class="map-error">Enable JavaScript to view the interactive map. The source links and points download remain available.</p></noscript>
+    </section>
+  </main>
+</body>
+</html>

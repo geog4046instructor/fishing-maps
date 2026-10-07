@@ -1,0 +1,432 @@
+{
+  "type": "FeatureCollection",
+  "name": "Lake Tangipahoa fish attractors",
+  "metadata": {
+    "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park",
+    "source_agency": "Mississippi Department of Wildlife, Fisheries, and Parks",
+    "installed": "2016-01",
+    "source_reviewed": "2026-10-07",
+    "transcription": "Published coordinate pairs in row order, left to right. West longitude converted to negative decimal degrees. IDs are local map IDs.",
+    "coordinate_reference": "GeoJSON uses WGS84 longitude, latitude. The source does not identify its coordinate datum; coordinates are used as published, without transformation.",
+    "condition": "Historical locations; current presence and condition unverified.",
+    "verification": "Transcribed from indexed official page text; direct page retrieval was unavailable."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "Fish attractor 1",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.52494,
+          31.17578
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "Fish attractor 2",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.530236,
+          31.177722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "name": "Fish attractor 3",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.525205,
+          31.179185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "name": "Fish attractor 4",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.530591,
+          31.178409
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "name": "Fish attractor 5",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.52495,
+          31.177649
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "name": "Fish attractor 6",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.526808,
+          31.174987
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 7,
+        "name": "Fish attractor 7",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.525986,
+          31.176931
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 8,
+        "name": "Fish attractor 8",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.527224,
+          31.181449
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 9,
+        "name": "Fish attractor 9",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.529852,
+          31.18107
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10,
+        "name": "Fish attractor 10",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.529796,
+          31.18173
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11,
+        "name": "Fish attractor 11",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.529053,
+          31.182028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 12,
+        "name": "Fish attractor 12",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.528012,
+          31.175112
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 13,
+        "name": "Fish attractor 13",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.530221,
+          31.176421
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 14,
+        "name": "Fish attractor 14",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.52948,
+          31.175335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 15,
+        "name": "Fish attractor 15",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.527562,
+          31.175282
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 16,
+        "name": "Fish attractor 16",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.524267,
+          31.175844
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 17,
+        "name": "Fish attractor 17",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.53061,
+          31.175474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 18,
+        "name": "Fish attractor 18",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.52507,
+          31.18042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 19,
+        "name": "Fish attractor 19",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.52973,
+          31.18009
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 20,
+        "name": "Fish attractor 20",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.529694,
+          31.18037
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 21,
+        "name": "Fish attractor 21",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.52953,
+          31.179585
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 22,
+        "name": "Fish attractor 22",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.524003,
+          31.180968
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 23,
+        "name": "Fish attractor 23",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.522561,
+          31.1816
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 24,
+        "name": "Fish attractor 24",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.519987,
+          31.187168
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 25,
+        "name": "Fish attractor 25",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.525106,
+          31.17543
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 26,
+        "name": "Fish attractor 26",
+        "installed": "2016-01",
+        "source": "https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.526528,
+          31.17494
+        ]
+      }
+    }
+  ]
+}
