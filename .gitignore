@@ -1,4 +1,8 @@
 node_modules/
 .DS_Store
 Thumbs.db
+# Local notes, dependency caches, and generated diagnostics.
 .local/
+.venv/
+__pycache__/
+*.py[cod]

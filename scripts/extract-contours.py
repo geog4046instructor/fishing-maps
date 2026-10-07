@@ -4,13 +4,10 @@ This does not interpolate depths or infer bathymetry from satellite imagery.
 Run from any directory; see percy-quin/sources/README.md for dependencies.
 """
 from pathlib import Path
-import sys
 import json
 import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
-if (ROOT / '.local/python').exists():
-    sys.path.insert(0, str(ROOT / '.local/python'))
 
 import numpy as np
 from PIL import Image, ImageDraw

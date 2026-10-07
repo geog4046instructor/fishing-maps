@@ -3,13 +3,10 @@
 Joins only adjacent dash endpoints; never infers the channel from depth bands.
 """
 from pathlib import Path
-import sys
 import json
 import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
-if (ROOT / '.local/python').exists():
-    sys.path.insert(0, str(ROOT / '.local/python'))
 
 import numpy as np
 import pdfplumber

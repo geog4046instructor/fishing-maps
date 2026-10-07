@@ -1,36 +1,27 @@
 # Lake Tangipahoa
 
-Percy Quin State Park, Pike County, Mississippi. First location in the fishing maps project.
+Percy Quin State Park, Pike County, Mississippi.
 
-## Source register
+## Map data
 
-Sources identified on October 7, 2026.
-
-| Source | Available content | Date and status |
+| Layer | Content | Source date |
 | --- | --- | --- |
-| [MDWFP lake depth map](https://www.mdwfp.com/sites/default/files/2024-05/lake-tangipahoa-2016.pdf) | Four-foot depth bands through 16–20 feet, creek channel, brushtops, piers, boat ramp, and access road. | October 2016 GeoPDF downloaded, rendered, and inspected. Depth-band boundaries extracted using embedded georeferencing. See [extraction notes](sources/README.md). |
-| [MDWFP Lake Tangipahoa page](https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park) | Lake overview and published GPS coordinates for fish attractors installed in January 2016. | Historical attractor locations; present condition is unverified. Indexed page reviewed; direct retrieval failed. |
-| [MDWFP Percy Quin State Park page](https://www.mdwfp.com/parks-destinations/park/percy-quin-state-park) | Park access, boat launch, marina, and facilities. | Source identified; exact feature positions remain to be verified. |
-| [MDWFP lake depth map index](https://www.mdwfp.com/fishing-boating/lake-depth-maps) | Official directory of lake depth maps, including Percy Quin. | Useful for locating replacement or updated source files. |
+| [Fish attractors](data/fish-attractors.geojson) | 26 published coordinate pairs | Installed January 2016 |
+| [Depth contours](data/depth-contours.geojson) | 123 lines at 4, 8, 12, and 16 feet | Map updated October 2016 |
+| [Creek channel](data/creek-channel.geojson) | Historical channel traced from the source map's vector strokes | Map updated October 2016 |
+| [Aerial imagery](sources/imagery.md) | USDA NAIP photography from MARIS, with Esri imagery and OpenStreetMap alternatives | NAIP acquisition: 2025 |
 
-## Initial map layers
+## Data notes
 
-- Shoreline and lake outline from a documented geographic source.
-- Depth contours and creek channel from the official depth map, with source date shown.
-- Published fish-attractor locations, with installation date shown.
-- Verified boat launch, piers, and access points.
-- Optional fishing observations, labeled separately from source data.
+Attractor IDs follow the published coordinate table in row order, left to right; they are local map IDs, not official MDWFP identifiers. Coordinates use WGS84 longitude/latitude. The source table does not specify a datum, so that interpretation is an assumption. Structure condition is unverified.
 
-## Current implementation
+Depth contours represent boundaries between the source map's colored depth bands. The map has no separate 20-foot contour. Contours and the creek channel are historical and are not adjusted for current water level or changes to the lake bottom.
 
-The root `index.html` is a Leaflet map intended for GitHub Pages and phone use on the lake. It defaults to 2025 USDA NAIP aerial imagery from MARIS, with Esri imagery and OpenStreetMap alternatives, opt-in live location with accuracy and follow controls, and 26 published fish-attractor points from January 2016. The attractor overlay can be toggled; markers show coordinates and a source link. See [imagery sources](sources/imagery.md).
+The original depth map, extraction methods, coordinate transformations, and accuracy limits are documented in the [source notes](sources/README.md).
 
-`data/fish-attractors.geojson` stores longitude/latitude coordinates and provenance. IDs follow the published table row by row, left to right; they are not official MDWFP identifiers. The source does not specify a coordinate datum, so interpreting its decimal degrees as WGS84 is an assumption. Present structure conditions are unverified.
+## Sources
 
-## Remaining mapping work
-
-1. Verify access-point locations and preserve source metadata with each layer.
-
-The depth layer contains 123 line features at 4, 8, 12, and 16 feet. All contours are shown by default; bank-fishing mode keeps the 4 and 8 ft levels. Current water level is not accounted for. The original PDF is archived and linked from the map.
-
-The creek channel is a separate, default-on white dashed overlay with its own toggle and source popup. `data/creek-channel.geojson` was extracted from the PDF's 77 vector channel strokes using the same georeferencing as the contours. The 2016 route is approximate; see the [extraction notes](sources/README.md#creek-channel). Access-point overlays remain pending.
+- [MDWFP Lake Tangipahoa information and attractor coordinates](https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park)
+- [MDWFP Lake Tangipahoa depth map](https://www.mdwfp.com/sites/default/files/2024-05/lake-tangipahoa-2016.pdf)
+- [MDWFP Percy Quin State Park](https://www.mdwfp.com/parks-destinations/park/percy-quin-state-park)
+- [Imagery sources and acquisition dates](sources/imagery.md)

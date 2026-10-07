@@ -9,7 +9,7 @@
     "transcription": "Published coordinate pairs in row order, left to right. West longitude converted to negative decimal degrees. IDs are local map IDs.",
     "coordinate_reference": "GeoJSON uses WGS84 longitude, latitude. The source does not identify its coordinate datum; coordinates are used as published, without transformation.",
     "condition": "Historical locations; current presence and condition unverified.",
-    "verification": "Transcribed from indexed official page text; direct page retrieval was unavailable."
+    "retrieval": "Search-indexed text of the official MDWFP lake page."
   },
   "features": [
     {
