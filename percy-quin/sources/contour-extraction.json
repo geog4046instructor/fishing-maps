@@ -6,11 +6,25 @@
   "depth_unit": "feet",
   "contours_ft": [
     4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+  ],
+  "published_contours_ft": [
+    4,
     8,
     12,
     16
   ],
-  "method": "Boundaries between the five original depth colors; no interpolation or satellite-derived depths.",
+  "estimated_contours_ft": [
+    6,
+    10,
+    14
+  ],
+  "method": "Gaussian-smoothed signed distances to nested depth bands; intermediate levels are zero contours of averaged adjacent fields. Land is masked; no extrapolation beyond 16 ft.",
   "source_crs": "NAD83(HARN) / Mississippi TM",
   "output_crs": "EPSG:4326",
   "georeferencing": "Main Lake viewport ISO 32000 GPTS/LPTS; least-squares affine in the embedded projected CRS, then datum transformation to WGS84.",
@@ -19,8 +33,9 @@
     1.241
   ],
   "control_fit_max_residual_m": 0.199,
-  "simplification_tolerance_m": 1.5,
-  "limitations": "Historical published depths, not current measured depths. Source survey accuracy and water-surface datum are unspecified. Raster cell size and registration residual are not survey accuracy. No 20-foot boundary exists in the source bands.",
+  "simplification_tolerance_m": 0.15,
+  "smoothing_sigma_m": 4.0,
+  "limitations": "Historical 2016 depth bands, smoothed for display. 6, 10 and 14 ft lines are distance-based estimates, not surveyed depths. Smoothing may remove small features and shift lines. Source survey accuracy and water-surface datum are unspecified. No 18 or 20 ft contours: the source has no 20 ft boundary to support interpolation.",
   "viewport_bbox_pdf": [
     17.03883,
     595.67908,
@@ -95,34 +110,66 @@
   "contours": [
     {
       "depth_ft": 4,
-      "features": 60,
+      "estimated": false,
+      "features": 12,
+      "vertices_before": 9681,
+      "vertices_after": 1870,
+      "source_features": 60,
       "raster_edges": 11478,
-      "vertices_before": 11538,
-      "vertices_after": 1992
+      "source_hausdorff_distance_m": 129.312
+    },
+    {
+      "depth_ft": 6,
+      "estimated": true,
+      "features": 5,
+      "vertices_before": 5565,
+      "vertices_after": 726
     },
     {
       "depth_ft": 8,
-      "features": 37,
+      "estimated": false,
+      "features": 11,
+      "vertices_before": 7629,
+      "vertices_after": 1549,
+      "source_features": 37,
       "raster_edges": 9142,
-      "vertices_before": 9179,
-      "vertices_after": 1459
+      "source_hausdorff_distance_m": 190.761
+    },
+    {
+      "depth_ft": 10,
+      "estimated": true,
+      "features": 1,
+      "vertices_before": 4067,
+      "vertices_after": 531
     },
     {
       "depth_ft": 12,
-      "features": 20,
+      "estimated": false,
+      "features": 19,
+      "vertices_before": 4943,
+      "vertices_after": 1140,
+      "source_features": 20,
       "raster_edges": 6022,
-      "vertices_before": 6042,
-      "vertices_after": 860
+      "source_hausdorff_distance_m": 151.856
+    },
+    {
+      "depth_ft": 14,
+      "estimated": true,
+      "features": 1,
+      "vertices_before": 1297,
+      "vertices_after": 199
     },
     {
       "depth_ft": 16,
-      "features": 6,
+      "estimated": false,
+      "features": 7,
+      "vertices_before": 943,
+      "vertices_after": 234,
+      "source_features": 6,
       "raster_edges": 1128,
-      "vertices_before": 1134,
-      "vertices_after": 162
+      "source_hausdorff_distance_m": 21.25
     }
   ],
-  "max_generalization_deviation_m": 1.49,
-  "feature_count": 123,
-  "geojson_bytes": 145946
+  "feature_count": 56,
+  "geojson_bytes": 172963
 }

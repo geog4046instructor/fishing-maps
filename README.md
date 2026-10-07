@@ -6,7 +6,7 @@ Mobile-friendly fishing maps built with Leaflet. The first location is [Lake Tan
 
 - 2025 aerial imagery, with Esri imagery and OpenStreetMap alternatives.
 - Current location, accuracy radius, and optional map following.
-- Depth contours at 4, 8, 12, and 16 feet; bank-fishing mode shows 4 and 8 feet.
+- Smooth depth contours every 2 feet from 4–16 feet; bank-fishing mode shows 4, 6, and 8 feet. Dashed 6, 10, and 14 ft lines are interpolated estimates.
 - Historical creek channel and fish-attractor locations.
 - Straight-line measurements in feet with draggable endpoints.
 

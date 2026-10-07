@@ -68,11 +68,11 @@
         <p id="depth-status" class="status" role="status">Loading depth contours…</p>
         <label class="field-label" for="depth-mode">Contour view</label>
         <select id="depth-mode" disabled>
-          <option value="all" selected>All contours · 4, 8, 12, 16 ft</option>
-          <option value="bank">Bank fishing · 4 &amp; 8 ft</option>
+          <option value="all" selected>All contours · 4–16 ft, every 2 ft</option>
+          <option value="bank">Bank fishing · 4, 6 &amp; 8 ft</option>
         </select>
         <p>Closely spaced lines indicate a steeper bottom. Tap a line for its depth. Shallow contours are emphasized for bank fishing.</p>
-        <p>These are published 2016 depths; current water level and bottom conditions may differ. The source has no separate 20 ft boundary.</p>
+        <p>Smoothed from the 2016 depth map. Dashed 6, 10, and 14 ft lines are estimates between published bands. Current depths may differ. Lines stop at 16 ft; the source has no deeper boundary for interpolation.</p>
         <a class="text-link" href="./percy-quin/sources/lake-tangipahoa-2016.pdf" target="_blank" rel="noopener noreferrer">Open MDWFP depth map <span aria-hidden="true">↗</span></a>
         <a class="text-link depth-download" href="./percy-quin/data/depth-contours.geojson" download>Download contour lines <span aria-hidden="true">↓</span></a>
       </section>
@@ -93,10 +93,13 @@
       <div class="map-legend">
       <div id="depth-key" class="depth-key" aria-label="Depth contour legend in feet" hidden>
         <span data-depth-key="4" class="depth-4">━ 4′</span>
+        <span data-depth-key="6" class="depth-6" title="Estimated">┄ 6′</span>
         <span data-depth-key="8" class="depth-8">━ 8′</span>
+        <span data-depth-key="10" class="depth-10" title="Estimated">┄ 10′</span>
         <span data-depth-key="12" class="depth-12">━ 12′</span>
+        <span data-depth-key="14" class="depth-14" title="Estimated">┄ 14′</span>
         <span data-depth-key="16" class="depth-16">━ 16′</span>
-        <small>2016 depths</small>
+        <small>2016 · dashed = estimated</small>
       </div>
       <div id="channel-key" class="channel-key" aria-label="Creek channel legend" hidden>
         <span class="channel-swatch" aria-hidden="true"></span>

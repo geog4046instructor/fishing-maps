@@ -1,5 +1,6 @@
-export const DEPTHS = [4, 8, 12, 16];
-export const DEPTH_COLORS = { 4: '#fff27b', 8: '#ff934b', 12: '#5fffea', 16: '#fd79ff' };
+export const DEPTHS = [4, 6, 8, 10, 12, 14, 16];
+export const DEPTH_COLORS = { 4: '#fff27b', 6: '#ffc66b', 8: '#ff934b', 10: '#b8ed9e', 12: '#5fffea', 14: '#b5b4ff', 16: '#fd79ff' };
+export const isEstimatedDepth = depth => DEPTHS.includes(depth) && depth % 4 !== 0;
 export const depthVisible = (depth, mode) => DEPTHS.includes(depth) && (mode === 'all' || depth <= 8);
 
 export function validateContours(data) {
@@ -9,10 +10,10 @@ export function validateContours(data) {
   const ids = new Set();
   const depths = new Set();
   for (const feature of data.features) {
-    const { id, depth_ft: depth } = feature.properties || {};
+    const { id, depth_ft: depth, estimated } = feature.properties || {};
     const coordinates = feature.geometry?.coordinates;
     if (feature.type !== 'Feature' || feature.geometry?.type !== 'LineString' ||
-        typeof id !== 'string' || ids.has(id) || !DEPTHS.includes(depth) ||
+        typeof id !== 'string' || ids.has(id) || !DEPTHS.includes(depth) || estimated !== isEstimatedDepth(depth) ||
         !Array.isArray(coordinates) || coordinates.length < 2 ||
         !coordinates.every(p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite) &&
           p[0] > -90.54 && p[0] < -90.51 && p[1] > 31.17 && p[1] < 31.20)) {
@@ -21,7 +22,7 @@ export function validateContours(data) {
     ids.add(id);
     depths.add(depth);
   }
-  if (DEPTHS.some(depth => !depths.has(depth))) throw new Error('Missing a published contour level');
+  if (DEPTHS.some(depth => !depths.has(depth))) throw new Error('Missing a contour level');
 }
 
 export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
@@ -48,9 +49,12 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
       const content = document.createElement('div');
       content.className = 'attractor-popup';
       const heading = document.createElement('h3');
-      heading.textContent = `${depth} ft depth contour`;
+      heading.textContent = `${depth} ft ${isEstimatedDepth(depth) ? 'estimated ' : ''}depth contour`;
       const note = document.createElement('p');
-      note.textContent = 'Published depth-band boundary · MDWFP, October 2016. Current depth depends on water level and changes to the lake bottom.';
+      note.textContent = (isEstimatedDepth(depth)
+        ? `Estimated between the ${depth - 2} and ${depth + 2} ft published boundaries; not a surveyed depth.`
+        : 'Smoothed published depth-band boundary.') +
+        ' Based on MDWFP, October 2016. Current depth depends on water level and changes to the lake bottom.';
       const source = document.createElement('a');
       source.href = './percy-quin/sources/lake-tangipahoa-2016.pdf';
       source.target = '_blank';
@@ -60,9 +64,15 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
       return content;
     }
 
+    function topPadding() {
+      const legendBottom = document.querySelector('.map-legend').getBoundingClientRect().bottom -
+        map.getContainer().getBoundingClientRect().top;
+      return Math.max(112, legendBottom + 16);
+    }
+
     function inspect(depth, latlng) {
       pauseFollow();
-      L.popup({ maxWidth: 250, autoPanPaddingTopLeft: [20, 110], autoPanPaddingBottomRight: [20, bottomPadding()] })
+      L.popup({ maxWidth: 250, autoPanPaddingTopLeft: [20, topPadding()], autoPanPaddingBottomRight: [20, bottomPadding()] })
         .setLatLng(latlng).setContent(depthPopup(depth)).openOn(map);
     }
 
@@ -85,13 +95,15 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
 
     for (const depth of DEPTHS) {
       const subset = { type: 'FeatureCollection', features: data.features.filter(f => f.properties.depth_ft === depth) };
-      const weight = depth <= 8 ? 2.8 : 2;
+      const estimated = isEstimatedDepth(depth);
+      const weight = estimated ? 1.6 : depth <= 8 ? 2.6 : 2;
+      const lineStyle = { smoothFactor: 0.15, lineCap: 'round', lineJoin: 'round', dashArray: estimated ? '6 4' : null };
       const casing = L.geoJSON(subset, { renderer: casingRenderer, pane: 'depthCasing', interactive: false,
-        style: { color: '#132429', weight: weight + 2.5, opacity: 0.8, smoothFactor: 0.5 } });
+        style: { ...lineStyle, color: '#132429', weight: weight + 2, opacity: 0.75 } });
       const lines = L.geoJSON(subset, {
         renderer, pane: 'depthLines',
         attribution: 'Depths: <a href="https://www.mdwfp.com/sites/default/files/2024-05/lake-tangipahoa-2016.pdf">MDWFP</a> (Oct. 2016)',
-        style: { color: DEPTH_COLORS[depth], weight, opacity: 1, smoothFactor: 0.5 },
+        style: { ...lineStyle, color: DEPTH_COLORS[depth], weight, opacity: 1 },
         onEachFeature(feature, layer) {
           layer.on('click', event => inspect(depth, event.latlng));
           addLabelCandidates(feature);
@@ -104,8 +116,7 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
       labelLayers.clearLayers();
       if (!toggle.checked || map.getZoom() < 15) return;
       const size = map.getSize();
-      const legendBottom = document.querySelector('.map-legend').getBoundingClientRect().bottom -
-        map.getContainer().getBoundingClientRect().top;
+      const labelTop = topPadding();
       const placed = [];
       const maxCandidates = Math.max(...Array.from(candidates.values(), values => values.length));
       // Round-robin through depths so long shallow lines don't crowd out deep labels.
@@ -115,11 +126,11 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
           const latlng = candidates.get(depth)[i];
           if (!latlng) continue;
           const p = map.latLngToContainerPoint(latlng);
-          if (p.x < 28 || p.x > size.x - 35 || p.y < Math.max(112, legendBottom + 16) || p.y > size.y - bottomPadding()) continue;
+          if (p.x < 28 || p.x > size.x - 35 || p.y < labelTop || p.y > size.y - bottomPadding()) continue;
           if (placed.some(other => p.distanceTo(other) < 65)) continue;
           const marker = L.marker(latlng, {
-            pane: 'depthLabels', title: `${depth} ft contour`, alt: `${depth} ft contour`,
-            icon: L.divIcon({ className: `depth-label depth-${depth}`, html: `${depth}′`, iconSize: [30, 24], iconAnchor: [15, 12] }),
+            pane: 'depthLabels', title: `${depth} ft ${isEstimatedDepth(depth) ? 'estimated ' : ''}contour`, alt: `${depth} ft ${isEstimatedDepth(depth) ? 'estimated ' : ''}contour`,
+            icon: L.divIcon({ className: `depth-label depth-${depth}${isEstimatedDepth(depth) ? ' depth-estimated' : ''}`, html: `${depth}′`, iconSize: [30, 24], iconAnchor: [15, 12] }),
           });
           marker.on('click', () => inspect(depth, latlng));
           labelLayers.addLayer(marker);
@@ -141,8 +152,8 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
         entry.hidden = !depthVisible(Number(entry.dataset.depthKey), mode.value);
       }
       status.textContent = !toggle.checked ? 'Depth contours hidden.' : mode.value === 'bank'
-        ? 'Showing 4 and 8 ft contours · October 2016.'
-        : 'Showing 4, 8, 12 and 16 ft contours · October 2016.';
+        ? '4–8 ft · 2 ft intervals · dashed 6 ft line estimated.'
+        : '4–16 ft · 2 ft intervals · dashed lines estimated.';
       updateLabels();
     }
     toggle.disabled = false;

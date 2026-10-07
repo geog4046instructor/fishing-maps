@@ -4,3 +4,5 @@ pypdf>=5
 pdfplumber>=0.11
 shapely>=2.0
 pyproj>=3.4
+scipy>=1.12
+contourpy>=1.2
