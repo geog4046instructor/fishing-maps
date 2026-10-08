@@ -14,7 +14,6 @@ export function validateChannel(data) {
 export async function addCreekChannel({ map, pauseFollow, bottomPadding }) {
   const toggle = document.querySelector('#channel-toggle');
   const status = document.querySelector('#channel-status');
-  const key = document.querySelector('#channel-key');
   try {
     const response = await fetch('./percy-quin/data/creek-channel.geojson');
     if (!response.ok) throw new Error(`Channel data returned HTTP ${response.status}`);
@@ -48,7 +47,7 @@ export async function addCreekChannel({ map, pauseFollow, bottomPadding }) {
           source.rel = 'noopener noreferrer';
           source.textContent = 'View original depth map ↗';
           content.append(heading, date, note, source);
-          L.popup({ maxWidth: 250, autoPanPaddingTopLeft: [20, 155], autoPanPaddingBottomRight: [20, bottomPadding()] })
+          L.popup({ maxWidth: 250, autoPanPaddingTopLeft: [20, 80], autoPanPaddingBottomRight: [20, bottomPadding()] })
             .setLatLng(event.latlng).setContent(content).openOn(map);
         });
       },
@@ -58,7 +57,6 @@ export async function addCreekChannel({ map, pauseFollow, bottomPadding }) {
       map.closePopup();
       if (toggle.checked) channel.addTo(map);
       else map.removeLayer(channel);
-      key.hidden = !toggle.checked;
       status.textContent = toggle.checked ? 'Historical mapped channel · October 2016.' : 'Creek channel hidden.';
       map.fire(toggle.checked ? 'overlayadd' : 'overlayremove', { layer: channel, name: 'Creek channel' });
     }
@@ -66,7 +64,6 @@ export async function addCreekChannel({ map, pauseFollow, bottomPadding }) {
     toggle.addEventListener('change', update);
     update();
   } catch (error) {
-    key.hidden = true;
     status.textContent = 'Creek channel could not load. Reload to retry or open the original depth map below.';
     status.classList.add('error');
     console.error('Unable to load creek channel:', error);

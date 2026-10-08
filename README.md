@@ -1,6 +1,6 @@
 # Fishing Maps
 
-Mobile-friendly fishing maps built with Leaflet. The first location is [Lake Tangipahoa at Percy Quin State Park, Mississippi](percy-quin/README.md).
+Interactive fishing maps for exploring lake depths, finding fish attractors, and measuring distances on a phone or computer. Currently featuring [Lake Tangipahoa at Percy Quin State Park, Mississippi](percy-quin/README.md).
 
 ## Features
 
@@ -12,21 +12,14 @@ Mobile-friendly fishing maps built with Leaflet. The first location is [Lake Tan
 
 ## Map controls
 
-- **Layers**: select a basemap and toggle fishing overlays.
-- **Locate me**: enable location. **Recenter me** resumes following after panning; **Stop** ends location tracking.
-- **Measure**: tap a start and end point, then drag **A** or **B** to adjust. **Clear** resets the line; **Done** exits.
-- **Whole lake**: return to the lake overview.
+- **Lake Tangipahoa / basemap badge** at the top left: select 2025 aerial imagery, Esri imagery, or the street map directly on the map. The sidebar also includes basemap and fishing-overlay controls.
+- **Location icon**: enable location or resume following after panning; **Stop** in the location status ends tracking.
+- **Ruler icon**: turn measurement on, tap two points, then drag **A** or **B** to adjust. Distance appears on the line; tapping the ruler again clears it and exits. Escape also exits.
+- **Zoom-out icon**: return to the whole-lake overview.
+- **Hamburger icon**: open or close the sidebar for map layers, sources, and instructions. On phones the sidebar opens as a drawer; close it with its X button or Escape.
 
 Location requires HTTPS and browser permission. Location fixes and measurements are not saved or uploaded. Internet access is required for imagery; offline maps are not included.
 
 ## Data
 
-Depth contours, the creek channel, and fish-attractor locations come from MDWFP's 2016 publications. Current water levels and underwater structure may differ. Source dates, coordinate assumptions, and extraction methods are documented in the [lake data notes](percy-quin/README.md).
-
-## Development
-
-The site uses static HTML, CSS, JavaScript, and GeoJSON, with no build step or backend. GitHub Pages can serve the repository root.
-
-With Node.js installed, run `node scripts/serve.mjs` to serve the site on port 8080. Run `node --test tests/*.test.js` for the automated tests.
-
-Python is needed only to regenerate the map data; see the [extraction documentation](percy-quin/sources/README.md).
+Depth contours, the creek channel, and fish-attractor locations come from 2016 publications by the Mississippi Department of Wildlife, Fisheries, and Parks (MDWFP). Current water levels and underwater structure may differ. Sources and data limitations are documented in the [lake data notes](percy-quin/README.md).

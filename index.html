@@ -16,7 +16,12 @@
   <a class="skip-link" href="#map">Skip to map</a>
   <main class="layout">
     <dialog id="map-panel" class="sidebar" open aria-label="Lake information and map controls">
-      <div class="panel-toolbar"><strong>Map &amp; layers</strong><button id="close-panel" type="button" aria-label="Close map layers">Done</button></div>
+      <div class="panel-toolbar">
+        <strong>Map &amp; layers</strong>
+        <button id="close-panel" class="icon-button" type="button" aria-label="Close sidebar">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
       <header class="lake-header">
         <p class="eyebrow">Fishing Maps <span>01 / Mississippi</span></p>
         <h1>Lake <br>Tangipahoa</h1>
@@ -78,7 +83,8 @@
       </section>
 
       <footer class="source-footer">
-        <p><strong>Using your location</strong><br>Tap Locate me and allow location in Chrome. The blue dot shows your position; the circle shows reported accuracy. Drag the map to pause following, then tap Recenter me. Location may pause when Chrome is in the background or the phone is locked.</p>
+        <p><strong>Using your location</strong><br>Tap the location icon and allow location in Chrome. The blue dot shows your position; the circle shows reported accuracy. Drag the map to pause following, then tap the location icon to recenter. Location may pause when Chrome is in the background or the phone is locked.</p>
+        <p><strong>Measuring distance</strong><br>Tap the ruler, then two points on the map. Distance appears on the line in feet. Drag A or B to adjust. Tap the ruler again to clear the measurement and exit.</p>
         <p><strong>Source: MDWFP</strong><br>Attractor locations are historical; their present condition is unverified. Numbers are map IDs, not official site names.</p>
         <div class="footer-links">
           <a href="https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park" target="_blank" rel="noopener noreferrer">Lake information</a>
@@ -89,40 +95,35 @@
 
     <section class="map-area" aria-label="Interactive fishing map">
       <div id="map" tabindex="0" aria-label="Lake Tangipahoa map. Use arrow keys to pan and plus or minus to zoom."></div>
-      <div class="map-label"><span class="live-dot" aria-hidden="true"></span> Lake Tangipahoa <span id="basemap-badge" class="basemap-badge">2025 aerial</span></div>
-      <div class="map-legend">
-      <div id="depth-key" class="depth-key" aria-label="Depth contour legend in feet" hidden>
-        <span data-depth-key="4" class="depth-4">━ 4′</span>
-        <span data-depth-key="6" class="depth-6" title="Estimated">┄ 6′</span>
-        <span data-depth-key="8" class="depth-8">━ 8′</span>
-        <span data-depth-key="10" class="depth-10" title="Estimated">┄ 10′</span>
-        <span data-depth-key="12" class="depth-12">━ 12′</span>
-        <span data-depth-key="14" class="depth-14" title="Estimated">┄ 14′</span>
-        <span data-depth-key="16" class="depth-16">━ 16′</span>
-        <small>2016 · dashed = estimated</small>
+      <div class="map-label">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span class="map-name">Lake Tangipahoa</span>
+        <span id="basemap-badge" class="basemap-badge">2025 aerial</span>
+        <span class="basemap-chevron" aria-hidden="true">▾</span>
+        <select id="map-basemap-select" aria-label="Switch basemap" title="Switch basemap" disabled>
+          <option value="naip2025" selected>2025 aerial · 30 cm</option>
+          <option value="satellite">Esri satellite / aerial</option>
+          <option value="streets">Street map</option>
+        </select>
       </div>
-      <div id="channel-key" class="channel-key" aria-label="Creek channel legend" hidden>
-        <span class="channel-swatch" aria-hidden="true"></span>
-        <span>Creek channel</span><small>2016 map</small>
-      </div>
-      </div>
-      <div class="location-panel">
-        <span id="location-status" role="status">Tap Locate me to show your position.</span>
+      <div class="location-panel" hidden>
+        <span id="location-status" role="status"></span>
         <button id="stop-location" type="button" hidden>Stop</button>
       </div>
-      <div id="measure-panel" class="measure-panel" hidden>
-        <div class="measure-status" role="status" aria-atomic="true">
-          <strong id="measure-readout">Measure a cast</strong>
-          <span id="measure-hint">Tap your start point.</span>
-        </div>
-        <button id="measure-clear" type="button" disabled>Clear</button>
-        <button id="measure-done" type="button">Done</button>
-      </div>
+      <div id="measure-status" class="sr-only" role="status" aria-atomic="true"></div>
       <nav class="map-actions" aria-label="Map actions">
-        <button id="locate-me" type="button" aria-pressed="false" disabled>Locate me</button>
-        <button id="measure-toggle" type="button" aria-pressed="false" aria-controls="measure-panel" disabled>Measure</button>
-        <button id="reset-view" type="button" disabled>Whole lake</button>
-        <button id="panel-toggle" type="button" aria-controls="map-panel" aria-expanded="false">Layers</button>
+        <button id="locate-me" class="icon-button" type="button" aria-label="Locate me" aria-pressed="false" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3.5M12 18.5V22M2 12h3.5M18.5 12H22"/></svg>
+        </button>
+        <button id="measure-toggle" class="icon-button" type="button" aria-label="Measure distance" aria-pressed="false" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g transform="rotate(-45 12 12)"><rect x="3" y="7.5" width="18" height="9" rx="1.5"/><path d="M7 7.5v4M11 7.5v2.5M15 7.5v4M19 7.5v2.5"/></g></svg>
+        </button>
+        <button id="reset-view" class="icon-button" type="button" aria-label="Zoom out to whole lake" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M7.5 10.5h6M15.5 15.5 21 21"/></svg>
+        </button>
+        <button id="panel-toggle" class="icon-button" type="button" aria-label="Open sidebar" aria-controls="map-panel" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
       </nav>
       <p id="map-error" class="map-error" role="alert" hidden></p>
       <p id="tile-status" class="tile-status" role="status" hidden></p>

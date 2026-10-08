@@ -28,11 +28,7 @@ export function createMeasurement({ distance, onChange }) {
 
 export function addMeasurementTool({ map, pauseFollow }) {
   const toggle = document.querySelector('#measure-toggle');
-  const panel = document.querySelector('#measure-panel');
-  const readout = document.querySelector('#measure-readout');
-  const hint = document.querySelector('#measure-hint');
-  const clear = document.querySelector('#measure-clear');
-  const done = document.querySelector('#measure-done');
+  const status = document.querySelector('#measure-status');
   const container = map.getContainer();
   const locationPanel = document.querySelector('.location-panel');
   const mapLabel = container.getAttribute('aria-label');
@@ -64,12 +60,10 @@ export function addMeasurementTool({ map, pauseFollow }) {
         ? 'Measurement map. Tap two points, or pan with arrow keys and press Enter to place each point at the center. Escape exits.'
         : mapLabel);
       toggle.setAttribute('aria-pressed', String(state.active));
-      panel.hidden = !state.active;
-      locationPanel.hidden = state.active;
-      clear.disabled = state.points.length === 0;
-      readout.textContent = state.feet === null ? 'Measure a cast' : `${state.feet.toLocaleString()} ft`;
-      hint.textContent = state.points.length === 0 ? 'Tap your start point.'
-        : state.points.length === 1 ? 'Tap your end point.' : 'Drag A or B to adjust.';
+      toggle.setAttribute('aria-label', state.active ? 'Stop measuring and clear distance' : 'Measure distance');
+      locationPanel.dataset.measuring = String(state.active);
+      status.textContent = !state.active ? '' : state.points.length === 0 ? 'Tap your start point.'
+        : state.points.length === 1 ? 'Tap your end point.' : `${state.feet.toLocaleString()} ft. Drag A or B to adjust.`;
 
       if (!state.points.length) {
         layers.clearLayers();
@@ -132,14 +126,6 @@ export function addMeasurementTool({ map, pauseFollow }) {
       measurement.start();
       container.focus({ preventScroll: true });
     }
-  });
-  clear.addEventListener('click', () => {
-    measurement.clear();
-    container.focus({ preventScroll: true });
-  });
-  done.addEventListener('click', () => {
-    measurement.stop();
-    toggle.focus({ preventScroll: true });
   });
   map.on('click', event => measurement.place(event.latlng));
   // CSS passes pointer taps through feature layers; this also covers keyboard popups.

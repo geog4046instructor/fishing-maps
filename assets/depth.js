@@ -29,7 +29,6 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
   const toggle = document.querySelector('#depth-toggle');
   const mode = document.querySelector('#depth-mode');
   const status = document.querySelector('#depth-status');
-  const key = document.querySelector('#depth-key');
   try {
     const response = await fetch('./percy-quin/data/depth-contours.geojson');
     if (!response.ok) throw new Error(`Depth data returned HTTP ${response.status}`);
@@ -65,9 +64,9 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
     }
 
     function topPadding() {
-      const legendBottom = document.querySelector('.map-legend').getBoundingClientRect().bottom -
+      const controlBottom = document.querySelector('.map-label').getBoundingClientRect().bottom -
         map.getContainer().getBoundingClientRect().top;
-      return Math.max(112, legendBottom + 16);
+      return Math.max(80, controlBottom + 16);
     }
 
     function inspect(depth, latlng) {
@@ -147,10 +146,6 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
         if (visible && !map.hasLayer(layer)) layer.addTo(map);
         else if (!visible && map.hasLayer(layer)) map.removeLayer(layer);
       }
-      key.hidden = !toggle.checked;
-      for (const entry of document.querySelectorAll('[data-depth-key]')) {
-        entry.hidden = !depthVisible(Number(entry.dataset.depthKey), mode.value);
-      }
       status.textContent = !toggle.checked ? 'Depth contours hidden.' : mode.value === 'bank'
         ? '4–8 ft · 2 ft intervals · dashed 6 ft line estimated.'
         : '4–16 ft · 2 ft intervals · dashed lines estimated.';
@@ -163,7 +158,6 @@ export async function addDepthContours({ map, pauseFollow, bottomPadding }) {
     map.on('moveend zoomend resize overlayadd overlayremove', updateLabels);
     update();
   } catch (error) {
-    key.hidden = true;
     status.textContent = 'Depth contours could not load. Reload to retry or open the original depth map below.';
     status.classList.add('error');
     console.error('Unable to load depth contours:', error);

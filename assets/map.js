@@ -1,4 +1,4 @@
-/* Leaflet is pinned to 1.9.4 in index.html. All data URLs are relative for GitHub Pages. */
+/* Leaflet is pinned to 1.9.4 in index.html. Relative data URLs support hosting in a subdirectory. */
 import { createLocationTracker } from './location.js';
 import { addDepthContours } from './depth.js';
 import { addCreekChannel } from './channel.js';
@@ -15,28 +15,40 @@ import { addMeasurementTool } from './measure.js';
   const select = document.querySelector('#attractor-select');
   const reset = document.querySelector('#reset-view');
   const basemapSelect = document.querySelector('#basemap-select');
+  const mapBasemapSelect = document.querySelector('#map-basemap-select');
   const locate = document.querySelector('#locate-me');
   const stopLocation = document.querySelector('#stop-location');
   const locationStatus = document.querySelector('#location-status');
+  const locationPanel = document.querySelector('.location-panel');
   const panel = document.querySelector('#map-panel');
   const panelToggle = document.querySelector('#panel-toggle');
-  const closePanel = document.querySelector('#close-panel');
   const mobile = window.matchMedia('(max-width: 720px), (max-width: 900px) and (max-height: 500px)');
+  let map;
 
+  function syncPanel() {
+    panelToggle.setAttribute('aria-expanded', String(panel.open));
+    panelToggle.setAttribute('aria-label', panel.open ? 'Close sidebar' : 'Open sidebar');
+    document.querySelector('.layout').classList.toggle('sidebar-closed', !panel.open);
+    map?.invalidateSize({ animate: false });
+  }
   function configurePanel() {
     panel.close();
     if (!mobile.matches) panel.show();
-    panelToggle.setAttribute('aria-expanded', 'false');
+    syncPanel();
   }
   configurePanel();
   mobile.addEventListener('change', configurePanel);
   panelToggle.addEventListener('click', () => {
     if (panel.open) panel.close();
-    else panel.showModal();
-    panelToggle.setAttribute('aria-expanded', String(panel.open));
+    else if (mobile.matches) panel.showModal();
+    else panel.show();
+    syncPanel();
   });
-  closePanel.addEventListener('click', () => panel.close());
-  panel.addEventListener('close', () => panelToggle.setAttribute('aria-expanded', 'false'));
+  document.querySelector('#close-panel').addEventListener('click', () => {
+    panel.close();
+    panelToggle.focus({ preventScroll: true });
+  });
+  panel.addEventListener('close', syncPanel);
   const sourceUrl = 'https://www.mdwfp.com/fishing-boating/lakes/lake-tangipahoa-percy-quin-state-park';
   // A viewing envelope only; this is not a surveyed lake boundary.
   const lakeView = [[31.1725, -90.5345], [31.2010, -90.5125]];
@@ -49,10 +61,10 @@ import { addMeasurementTool } from './measure.js';
     return;
   }
 
-  const map = L.map('map', { zoomControl: false, zoomSnap: 0.25 });
+  map = L.map('map', { zoomControl: false, zoomSnap: 0.25 });
   L.control.zoom({ position: 'topright' }).addTo(map);
-  L.control.scale({ position: 'bottomleft', imperial: true, metric: false }).addTo(map);
-  const bottomPadding = () => window.innerHeight < 500 ? 110 : 205;
+  L.control.scale({ position: 'bottomright', imperial: true, metric: false }).addTo(map);
+  const bottomPadding = () => locationPanel.hidden || locationPanel.dataset.measuring === 'true' ? 130 : 205;
   const showLake = () => map.fitBounds(lakeView, { paddingTopLeft: [24, 80], paddingBottomRight: [24, bottomPadding()], animate: false });
   showLake();
   reset.disabled = false;
@@ -91,21 +103,26 @@ import { addMeasurementTool } from './measure.js';
     layer.on('tileerror', () => {
       failed = true;
       if (layer !== basemap) return;
-      tileStatus.textContent = `Some ${BASEMAP_DETAILS[name].label} tiles could not load. Check your connection or switch basemaps in Layers.`;
+      tileStatus.textContent = `Some ${BASEMAP_DETAILS[name].label} tiles could not load. Check your connection or use the basemap selector at the top left.`;
       tileStatus.hidden = false;
     });
     layer.on('load', () => { if (layer === basemap && !failed) tileStatus.hidden = true; });
   }
   basemap.addTo(map);
   updateBasemapDetails();
-  basemapSelect.disabled = false;
-  basemapSelect.addEventListener('change', () => {
+  function switchBasemap(value) {
+    if (!Object.hasOwn(basemaps, value) || basemap === basemaps[value]) return;
     map.removeLayer(basemap);
-    basemap = basemaps[basemapSelect.value];
+    basemap = basemaps[value];
+    basemapSelect.value = mapBasemapSelect.value = value;
     tileStatus.hidden = true;
     basemap.addTo(map);
     updateBasemapDetails();
-  });
+  }
+  for (const control of [basemapSelect, mapBasemapSelect]) {
+    control.disabled = false;
+    control.addEventListener('change', () => switchBasemap(control.value));
+  }
 
   // The location never leaves this controller except to draw the current marker.
   // Panning the map naturally requests basemap tiles for the viewed area.
@@ -131,9 +148,10 @@ import { addMeasurementTool } from './measure.js';
       }
     },
     onChange(state) {
-      locate.textContent = !state.active ? 'Locate me' : state.following ? (state.fix ? 'Following' : 'Locating…') : 'Recenter me';
+      locate.setAttribute('aria-label', !state.active ? 'Locate me' : state.following ? (state.fix ? 'Pause location following' : 'Finding your location') : 'Recenter me');
       locate.setAttribute('aria-pressed', String(state.following));
       stopLocation.hidden = !state.active;
+      locationPanel.hidden = state.status === 'idle';
       locationStatus.dataset.state = state.status;
       if (state.status === 'tracking') {
         const feet = Math.max(1, Math.round(state.fix.accuracy * 3.28084));
